@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import loginImage from '../images/img-login.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useAuth } from '../services/Auth.service';
+import { useAuth } from '../services/AuthService';
 import { Link, Navigate } from 'react-router-dom'; // Importa useHistory desde react-router-dom
 import { useNavigate } from 'react-router-dom';
 
 
 const Login: React.FC = () => {
-  const { login } = useAuth();
+  const { login } = useAuth() as { login: (email: string, password: string) => Promise<void> };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);

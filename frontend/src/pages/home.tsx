@@ -1,30 +1,39 @@
-import React from 'react';
-import { useAuth } from '../services/Auth.service';
+import React, { useEffect } from 'react';
+import { useAuth } from '../services/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
-    const { currentUser, logout } = useAuth();
+    const authService = useAuth();
+    const user = authService?.user ?? null;
+    const logout = authService?.logout ?? (() => console.error("La función de cierre de sesión no está disponible"));
 
-    // Función para manejar el cierre de sesión
+    const navigate = useNavigate(); // Obtiene el objeto de historial de navegación
+
+    useEffect(() => {
+        // Verificar si el usuario no está autenticado y redirigir a la página de inicio de sesión
+        if (!user) {
+            navigate('/login', { replace: true });
+        }
+    }, [user, navigate]);
+
     const handleLogout = async () => {
         try {
-            await logout();
+            await logout(); // Cerrar sesión
+            navigate('/login', { replace: true }); // Redirigir al usuario a la página de inicio de sesión y reemplazar la entrada actual en el historial
         } catch (error) {
-            console.error('Error al cerrar sesión:', error);
+            console.error("Error al cerrar sesión:", error);
         }
     };
 
     return (
         <div>
-            {currentUser ? (
+            {user ? (
                 <div>
-                    <h1>Bienvenido, {currentUser.email}</h1>
+                    <p>Usuario autenticado como: {user.email}</p>
                     <button onClick={handleLogout}>Cerrar sesión</button>
                 </div>
             ) : (
-                <div>
-                    <h1>Entraste perra</h1>
-                    {/* Aquí puedes colocar el formulario de inicio de sesión */}
-                </div>
+                <p>No hay usuario autenticado</p>
             )}
         </div>
     );

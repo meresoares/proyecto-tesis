@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import registroImage from '../images/img-registro.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useAuth } from '../services/Auth.service';
+import { useAuth } from '../services/AuthService';
 import { Link } from 'react-router-dom';
 
 
@@ -45,8 +45,17 @@ const Register: React.FC = () => {
             }
 
             // Llamada al servicio de autenticación para registrar al usuario
-            await auth.register(email, password);
-            setSuccessMessage('¡Cuenta creada exitosamente!');
+            //await auth.register(email, password);
+            //setSuccessMessage('¡Cuenta creada exitosamente!');
+
+            if (auth) {
+                // Llamada al servicio de autenticación para registrar al usuario
+                await auth.register(email, password);
+                setSuccessMessage('¡Cuenta creada exitosamente!');
+            } else {
+                console.error("El servicio de autenticación no está disponible");
+            }
+
 
             // Limpiar campos después del registro exitoso
             setUsername('');
@@ -72,14 +81,20 @@ const Register: React.FC = () => {
     };
 
     const handleGoogleLogin = async () => {
-        try {
-            await auth.loginWithGoogle();
-            // Aquí podrías redirigir al usuario a una página de bienvenida o a su perfil
-        } catch (error) {
-            console.error('Error al iniciar sesión con Google:', error);
+        if (auth) {
+            try {
+                await auth.loginWithGoogle();
+                // Aquí podrías redirigir al usuario a una página de bienvenida o a su perfil
+            } catch (error) {
+                console.error('Error al iniciar sesión con Google:', error);
+                setError('Error al iniciar sesión con Google. Por favor, inténtalo de nuevo.');
+            }
+        } else {
+            console.error("El servicio de autenticación no está disponible");
             setError('Error al iniciar sesión con Google. Por favor, inténtalo de nuevo.');
         }
     };
+
 
     return (
         <section className="text-center text-lg-start">
