@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './components/Login';
-import Registro from './components/Register';
+import Login from './pages/Login';
+import Registro from './pages/Register';
 import Home from './pages/Home'
 import { AuthProvider } from './services/AuthService'; // Importa el proveedor de contexto de autenticación
 import '@fortawesome/fontawesome-free/css/all.css';

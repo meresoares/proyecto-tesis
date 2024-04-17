@@ -9,6 +9,7 @@ import { app as firebaseConfig } from './config/firebase.config';
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 firebaseConfig;
 
+// Utiliza ReactDOM.render
 ReactDOM.render(
   <React.StrictMode>
     <App />

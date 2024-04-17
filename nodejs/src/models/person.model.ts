@@ -8,6 +8,7 @@ export class Person extends Model {
     public universidad!: string;
     public carrera!: string;
     public datos_personales!: string;
+    // Que acepte valores nulos en la bd
     public tipo_persona_role!: 'Usuario' | 'Administrador';
 }
 
