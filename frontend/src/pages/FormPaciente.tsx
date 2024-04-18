@@ -92,8 +92,8 @@ const FormPaciente: React.FC = () => {
                                     <MDBCol md='3' className='ps-5'>
                                         <h6 className="mb-0">Sexo</h6>
                                         <select value={sexo} onChange={(e) => setSexo(e.target.value)}>
-                                            <option value="uni1">Femenino</option>
-                                            <option value="uni2">Masculino</option>
+                                            <option value="Femenino">Femenino</option>
+                                            <option value="Masculino">Masculino</option>
                                         </select>
                                     </MDBCol>
 
@@ -121,22 +121,22 @@ const FormPaciente: React.FC = () => {
                                     <MDBCol md='3' className='ps-5'>
                                         <h6 className="mb-0">Universidad</h6>
                                         <select value={universidad} onChange={(e) => setUniversidad(e.target.value)}>
-                                            <option value="uni1">FP-UNE</option>
-                                            <option value="uni2">FAFI-UNE</option>
-                                            <option value="uni3">FCE-UNE</option>
-                                            <option value="uni3">FDCS-UNE</option>
-                                            <option value="uni3">Otro</option>
+                                            <option value="FP-UNE">FP-UNE</option>
+                                            <option value="FAFI-UNE">FAFI-UNE</option>
+                                            <option value="FCE-UNE">FCE-UNE</option>
+                                            <option value="FDCS-UNE">FDCS-UNE</option>
+                                            <option value="Otro">Otro</option>
                                         </select>
                                     </MDBCol>
 
                                     <MDBCol md='3' className='ps-5'>
                                         <h6 className="mb-0">Carrera</h6>
                                         <select value={carrera} onChange={(e) => setCarrera(e.target.value)}>
-                                            <option value="carrera1">Lic. en Análisis de Sistemas</option>
-                                            <option value="carrera2">Lic. en Turismo</option>
-                                            <option value="carrera3">Ingeniería de Sistemas</option>
-                                            <option value="carrera3">Ingeniería Eléctrica</option>
-                                            <option value="uni3">Otro</option>
+                                            <option value="Analisis">Lic. en Análisis de Sistemas</option>
+                                            <option value="Turismo">Lic. en Turismo</option>
+                                            <option value="Sistemas">Ingeniería de Sistemas</option>
+                                            <option value="Electrica">Ingeniería Eléctrica</option>
+                                            <option value="Otro">Otro</option>
                                         </select>
                                     </MDBCol>
                                 </MDBRow>
