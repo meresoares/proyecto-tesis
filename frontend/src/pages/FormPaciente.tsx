@@ -6,19 +6,21 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
 import { format } from 'date-fns';
-import { getAllPersons, createPerson } from '../services/Api'
+// import { getAllPersons, createPerson } from '../services/Api'
 
 const FormPaciente: React.FC = () => {
     const authService = useAuth();
     const user = authService?.user ?? null;
-    const logout = authService?.logout ?? (() => console.error("La función de cierre de sesión no está disponible"));
+    //const logout = authService?.logout ?? (() => console.error("La función de cierre de sesión no está disponible"));
     const navigate = useNavigate(); // Obtiene el objeto de historial de navegación
 
     const [startDate, setStartDate] = useState<Date | null>(null);
     const today = new Date(); // Obtener la fecha actual
 
+    const API_BASE_URL = 'http://localhost:3000/api';
+
     //Estados para los campos a ser solicitados
-    const [id, setId] = useState<string>('');
+    const [id] = useState<string>('');
     const [sexo, setSexo] = useState<string>('');
     const [universidad, setUniversidad] = useState<string>('');
     const [carrera, setCarrera] = useState<string>('');
@@ -31,7 +33,7 @@ const FormPaciente: React.FC = () => {
         }
     }, [user, navigate]);
 
-    const handleLogout = async () => {
+    /* const handleLogout = async () => {
         try {
             await logout(); // Cerrar sesión
             navigate('/login', { replace: true });
@@ -39,13 +41,13 @@ const FormPaciente: React.FC = () => {
         } catch (error) {
             console.error("Error al cerrar sesión:", error);
         }
-    };
+    }; */
 
     const handleSubmit = async () => {
         try {
             const formattedDate = formatDate(startDate); // Formatea la fecha seleccionada
             // Envía los datos del formulario al backend
-            await axios.post('http://localhost:3000/api/persons', {
+            await axios.post(`${API_BASE_URL}/persons`, {
                 id,
                 sexo,
                 fechaNacimiento: formattedDate,
@@ -123,6 +125,7 @@ const FormPaciente: React.FC = () => {
                                             <option value="uni2">FAFI-UNE</option>
                                             <option value="uni3">FCE-UNE</option>
                                             <option value="uni3">FDCS-UNE</option>
+                                            <option value="uni3">Otro</option>
                                         </select>
                                     </MDBCol>
 
@@ -133,6 +136,7 @@ const FormPaciente: React.FC = () => {
                                             <option value="carrera2">Lic. en Turismo</option>
                                             <option value="carrera3">Ingeniería de Sistemas</option>
                                             <option value="carrera3">Ingeniería Eléctrica</option>
+                                            <option value="uni3">Otro</option>
                                         </select>
                                     </MDBCol>
                                 </MDBRow>

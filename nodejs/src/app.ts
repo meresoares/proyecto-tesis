@@ -5,8 +5,8 @@ import personRoutes from './routes/person.routes';
 import dotenv from "dotenv";
 import cors from 'cors';
 import bodyParser from 'body-parser';
-dotenv.config();
 
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,12 +19,12 @@ app.use("/api", personRoutes);
 
 // Inicio del servidor
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}/api`);
+  console.log('Server is running on http://localhost:${PORT}/api');
 });
 
 // Conexión a la base de datos
 sequelize.authenticate()
   .then(() => console.log('Connection to the database has been established successfully.'))
   .catch((err: any) => {
-    console.error(`Unable to connect to the database: ${err}`);
+    console.error('Unable to connect to the database: ${err}');
   });

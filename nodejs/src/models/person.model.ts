@@ -5,11 +5,12 @@ import sequelize from '../config/config'; // Importar directamente desde el arch
 export class Person extends Model {
     public id!: number;
     public fecha_nacimiento!: Date;
-    public universidad!: string;
-    public carrera!: string;
+    public universidad!: 'FP-UNE' | 'FAFI-UNE' | 'FDCS-UNE' | 'FCE-UNE' | 'Otro';
+    public carrera!: 'Lic. en Análisis de Sistemas' | 'Lic. en Turismo' | 'Ingeniería de Sistemas' | 'Ingeniería Eléctrica' | 'Otro';
     public datos_personales!: string;
     // Que acepte valores nulos en la bd
     public tipo_persona_role!: 'Usuario' | 'Administrador';
+    public sexo!: 'Femenino' | 'Masculino';
 }
 
 Person.init({
@@ -36,6 +37,10 @@ Person.init({
     },
     tipo_persona_role: {
         type: DataTypes.ENUM('Usuario', 'Administrador'),
+        allowNull: false,
+    },
+    sexo: {
+        type: DataTypes.ENUM('Femenino', 'Masculino'),
         allowNull: false,
     }
 }, {
