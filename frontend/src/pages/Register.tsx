@@ -3,6 +3,7 @@ import registroImage from '../images/img-registro.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAuth } from '../services/AuthService';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const Register: React.FC = () => {
@@ -15,6 +16,7 @@ const Register: React.FC = () => {
     const [error, setError] = useState('');
     const [submitting, setSubmitting] = useState(false); // Estado para controlar el envío del formulario
     const [successMessage, setSuccessMessage] = useState('');
+    const navigate = useNavigate();
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -44,14 +46,14 @@ const Register: React.FC = () => {
                 return;
             }
 
-            // Llamada al servicio de autenticación para registrar al usuario
-            //await auth.register(email, password);
-            //setSuccessMessage('¡Cuenta creada exitosamente!');
-
             if (auth) {
                 // Llamada al servicio de autenticación para registrar al usuario
                 await auth.register(email, password);
                 setSuccessMessage('¡Cuenta creada exitosamente!');
+                setTimeout(() => {
+                    // Redirige al usuario al inicio de sesión después de 3 segundos
+                    navigate("/login");
+                }, 3000);
             } else {
                 console.error("El servicio de autenticación no está disponible");
             }

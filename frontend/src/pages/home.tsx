@@ -10,9 +10,10 @@ const Home: React.FC = () => {
     const user = authService?.user ?? null;
     const logout = authService?.logout ?? (() => console.error("La función de cierre de sesión no está disponible"));
 
-    const navigate = useNavigate(); // Obtiene el objeto de historial de navegación
+    const navigate = useNavigate();
+    // Obtiene el objeto de historial de navegación
 
-    const [rol, setRol] = useState<string>('Usuario');
+    const [rol] = useState<string>('Usuario');
 
     useEffect(() => {
         // Verificar si el usuario no está autenticado y redirigir a la página de inicio de sesión

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import loginImage from '../images/img-login.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAuth } from '../services/AuthService';
-import { Link, Navigate } from 'react-router-dom'; // Importa useHistory desde react-router-dom
+import { Link } from 'react-router-dom'; // Importa useHistory desde react-router-dom
 import { useNavigate } from 'react-router-dom';
 
 
-const Login: React.FC = () => {
+const LoginUser: React.FC = () => {
   const { login } = useAuth() as { login: (email: string, password: string) => Promise<void> };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -85,7 +85,10 @@ const Login: React.FC = () => {
                       <div className="pt-1 mb-4">
                         <button className="btn btn-dark btn-lg btn-block" type="submit">Acceder</button>
                       </div>
+
                       <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>No tienes aún una cuenta? <Link to="/registro" style={{ color: '#393f81' }}>Registrate aquí</Link></p>
+                      <p className="mb-2 pb-lg-1" style={{ color: '#393f81' }}>Eres administrador? <Link to="/login-admin" style={{ color: '#393f81' }}>Ingresa aquí</Link></p>
+
                     </form>
                   </div>
                 </div>
@@ -98,4 +101,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default LoginUser;

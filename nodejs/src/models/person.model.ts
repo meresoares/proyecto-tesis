@@ -1,53 +1,60 @@
 // src/models/Person.ts
 import { Model, DataTypes } from 'sequelize';
-import sequelize from '../config/config'; // Importar directamente desde el archivo de configuración
+import sequelize from '../config/config';
 
 export class Person extends Model {
-    public id!: number;
+    public id!: string; // Cambiado de number a string
     public fecha_nacimiento!: Date;
-    public universidad!: 'FP-UNE' | 'FAFI-UNE' | 'FDCS-UNE' | 'FCE-UNE' | 'Otro';
-    public carrera!: 'Lic. en Análisis de Sistemas' | 'Lic. en Turismo' | 'Ingeniería de Sistemas' | 'Ingeniería Eléctrica' | 'Otro';
-    public datos_personales!: string;
-    // Que acepte valores nulos en la bd
-    public tipo_persona_role!: 'Usuario' | 'Administrador';
-    public sexo!: 'Femenino' | 'Masculino';
+    public universidad!: string; // Cambiado para permitir cualquier string
+    public carrera!: string; // Cambiado para permitir cualquier string
+    public datos_personales?: string; // Ahora opcional
+    public tipo_persona_role!: string; // Cambiado para permitir cualquier string
+    public sexo!: string; // Cambiado para permitir cualquier string
 }
 
 Person.init({
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.STRING(255), // Actualizado a string para coincidir con el SQL
+        allowNull: false,
         primaryKey: true,
     },
     fecha_nacimiento: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY, // Solo fecha sin tiempo
         allowNull: false,
     },
     universidad: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(255), // No enum porque Sequelize no soporta check constraint
         allowNull: false,
+        validate: {
+            isIn: [['FP-UNE', 'FAFI-UNE', 'FCE-UNE', 'FDCS-UNE', 'Otro']], // Validación de valores permitidos
+        }
     },
     carrera: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(255), // No enum por la misma razón
         allowNull: false,
+        validate: {
+            isIn: [['Lic. en Análisis de Sistemas', 'Lic. en Turismo', 'Ingeniería de Sistemas', 'Ingeniería Eléctrica', 'Otro']],
+        }
     },
     datos_personales: {
-        type: DataTypes.TEXT,
-        allowNull: true,
+        type: DataTypes.TEXT, // Texto largo
+        allowNull: true, // Permitir nulos
     },
     tipo_persona_role: {
-        type: DataTypes.ENUM('Usuario', 'Administrador'),
+        type: DataTypes.STRING(50), // No enum pero limitado a 50 caracteres
         allowNull: false,
     },
     sexo: {
-        type: DataTypes.ENUM('Femenino', 'Masculino'),
+        type: DataTypes.STRING(10), // No enum pero limitado a 10 caracteres
         allowNull: false,
+        validate: {
+            isIn: [['Femenino', 'Masculino']], // Validación de valores permitidos
+        }
     }
 }, {
     tableName: 'persona',
-    sequelize, // apasar la instancia de conexión
-    timestamps: false, // Deshabilita la gestión automática de las columnas createdAt y updatedAt
-
+    sequelize,
+    timestamps: false, // Confirmado que no queremos timestamps
 });
 
-export default Person; // Exportación por defecto del modelo
+export default Person;

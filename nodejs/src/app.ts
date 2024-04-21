@@ -9,7 +9,7 @@ import bodyParser from 'body-parser';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Configura CORS para permitir todas las solicitudes de cualquier origen
 app.use(cors());
